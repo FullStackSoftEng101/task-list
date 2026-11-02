@@ -1,48 +1,56 @@
 import db from "#db/client";
 
-export async function createTask(
-  title,
-  description,
-  date,
-  priority,
-  done,
-  userId,
-) {
+export async function createTask(title, done, userId) {
   const sql = `
   INSERT INTO tasks
-  (title, description,  date, priority, done, user_id)
-VALUES ($1, $2, $3, $4, $5, $6)
+  (title, done, user_id)
+VALUES ($1, $2, $3)
   RETURNING *
   `;
-  const { rows: task } = await db.query(sql, [
-    title,
-    description,
-    date,
-    priority,
-    done,
-    userId,
-  ]);
+  const {
+    rows: [task],
+  } = await db.query(sql, [title, done, userId]);
   return task;
 }
 
-export async function getTasksByUserId(id) {
+export async function getTasksByUserId(userId) {
   const sql = `
   SELECT *
   FROM tasks
   WHERE user_id=$1`;
 
-  const { rows: tasks } = await db.query(sql, [id]);
-  return reservations;
+  const { rows: tasks } = await db.query(sql, [userId]);
+  return tasks;
 }
 export async function getTaskbyId(id) {
   const sql = `
   SELECT * 
   FROM tasks
-  WHERE id=$1
+  WHERE id = $1
   `;
 
   const {
-    rows: [reservation],
+    rows: [task],
   } = await db.query(sql, [id]);
-  return reservation;
+  return task;
+}
+export async function deleteTaskByiId(id) {
+  const sql = `
+  DELETE FROM tasks
+  WHERE id=$1`;
+  await db.query(sql, [id]);
+}
+export async function updateTaskById(id, title, done) {
+  const sql = `
+      UPDATE tasks
+      SET
+      title=$2,
+  done=$3
+      WHERE id = $1
+      RETURNING *
+      `;
+  const {
+    rows: [task],
+  } = await db.query(sql, [id, title, done]);
+  return task;
 }

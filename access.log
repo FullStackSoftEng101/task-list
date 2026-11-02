@@ -1,0 +1,15 @@
+POST /users/register 201 139 - 61.083 ms
+POST /users/login 200 139 - 48.327 ms
+POST /users/login 401 28 - 46.692 ms
+POST /users/login 200 139 - 49.871 ms
+POST /tasks 400 27 - 1.708 ms
+POST /tasks 401 12 - 0.487 ms
+POST /tasks 201 50 - 1.636 ms
+GET /tasks 401 12 - 0.140 ms
+GET /tasks 200 52 - 1.727 ms
+PUT /tasks/70 401 12 - 0.281 ms
+PUT /tasks/1 403 22 - 1.354 ms
+PUT /tasks/70 200 57 - 1.538 ms
+DELETE /tasks/70 401 12 - 0.139 ms
+DELETE /tasks/1 403 22 - 0.702 ms
+DELETE /tasks/70 204 - - 1.363 ms

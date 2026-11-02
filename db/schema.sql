@@ -4,16 +4,16 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
     id serial PRIMARY KEY,
-    username text NOT NULL,
+    username text UNIQUE NOT NULL,
     password text NOT NULL
 );
 
 CREATE TABLE tasks (
     id serial PRIMARY KEY,
     title text NOT NULL,
-    description text NOT NULL,
-    date date NOT NULL,
-    priority int NOT NULL,
+    -- description text NOT NULL,
+    -- date date NOT NULL,
+    -- priority int NOT NULL,
     done boolean NOT NULL DEFAULT false,
     user_id int NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );

@@ -1,6 +1,7 @@
 import express from "express";
-const router = express.Router;
-export default usersRouter;
+const router = express.Router();
+export default router;
+
 import requireBody from "../middleware/requireBody.js";
 import { createUser, getUserByUsernameAndPassword } from "#db/queries/users";
 import { createToken } from "#utils/jwt";
@@ -24,6 +25,6 @@ router.post(
     const user = await getUserByUsernameAndPassword(username, password);
     if (!user) return res.status(401).send("Invalid username or password");
     const token = await createToken({ id: user.id });
-    res.status(201).send(token);
+    res.status(200).send(token);
   },
 );
